@@ -4,8 +4,8 @@ import { renderUserBlock } from './user.js'
 import { renderToast } from './lib.js'
 
 window.addEventListener('DOMContentLoaded', () => {
-  renderUserBlock('0')
-  renderSearchFormBlock()
+  renderUserBlock('0', '', 0)
+  renderSearchFormBlock(new Date, new Date)
   renderSearchStubBlock()
   renderToast(
     {text: 'Это пример уведомления. Используйте его при необходимости', type: 'success'},
