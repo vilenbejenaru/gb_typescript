@@ -1,6 +1,24 @@
 import { renderBlock } from './lib.js'
 
-export function renderSearchFormBlock () {
+export function renderSearchFormBlock (checkin: Date, checkout?: Date) : void {
+  const selectedCheckin =  checkin.getFullYear()+'-0'+(checkin.getMonth()+1)+'-'+checkin.getDate();
+
+  let selectedCheckout = '';
+  if (checkout)
+  {
+    selectedCheckout =  checkout.getFullYear()+'-0'+(checkout.getMonth()+1)+'-'+checkout.getDate();
+  }
+  else{
+    checkin.setDate(checkin.getDate()+2);
+    selectedCheckout = checkin.getFullYear()+'-0'+(checkin.getMonth()+1)+'-'+checkin.getDate();
+    checkin.setDate(checkin.getDate()-2)
+  }
+
+  const minCheckout = checkin.getFullYear()+'-0'+(checkin.getMonth()+1)+'-'+(checkin.getDate()-1);
+  const currentDate = new Date(checkin.getFullYear(), checkin.getMonth()+1, 0);
+  const maxCheckout = currentDate.getFullYear()+'-'+(currentDate.getMonth()+2)+'-'+currentDate.getDate();
+
+
   renderBlock(
     'search-form-block',
     `
@@ -19,12 +37,12 @@ export function renderSearchFormBlock () {
         </div>
         <div class="row">
           <div>
-            <label for="check-in-date">Дата заезда</label>
-            <input id="check-in-date" type="date" value="2021-05-11" min="2021-05-11" max="2021-06-30" name="checkin" />
+            <label for="check-in-date">Дата заезда </label>
+            <input id="check-in-date" type="date" value=${selectedCheckin} min=${minCheckout} max=${maxCheckout}  name="checkin" />
           </div>
           <div>
             <label for="check-out-date">Дата выезда</label>
-            <input id="check-out-date" type="date" value="2021-05-13" min="2021-05-11" max="2021-06-30" name="checkout" />
+            <input id="check-out-date" type="date" value=${selectedCheckout} min=${minCheckout} max=${maxCheckout} name="checkout" />
           </div>
           <div>
             <label for="max-price">Макс. цена суток</label>
