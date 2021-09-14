@@ -5,7 +5,7 @@ import { renderToast } from './lib.js'
 
 window.addEventListener('DOMContentLoaded', () => {
   renderUserBlock('0', '', 0)
-  renderSearchFormBlock(new Date, new Date)
+  renderSearchFormBlock(new Date)
   renderSearchStubBlock()
   renderToast(
     {text: 'Это пример уведомления. Используйте его при необходимости', type: 'success'},
