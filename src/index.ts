@@ -1,9 +1,14 @@
 import { renderSearchFormBlock } from './search-form.js'
 import { renderSearchStubBlock } from './search-results.js'
 import { renderUserBlock } from './user.js'
-import { renderToast } from './lib.js'
+import { renderToast, getUserData, getFavoritesAmount } from './lib.js'
+
 
 window.addEventListener('DOMContentLoaded', () => {
+
+  const user = getUserData();
+  console.log(getUserData);
+
   renderUserBlock('0', '', 0)
   renderSearchFormBlock(new Date)
   renderSearchStubBlock()
@@ -12,3 +17,4 @@ window.addEventListener('DOMContentLoaded', () => {
     {name: 'Понял', handler: () => {console.log('Уведомление закрыто')}}
   )
 })
+/////////////////////////////////////////////

@@ -19,6 +19,31 @@ export function renderSearchFormBlock (checkin: Date, checkout?: Date) : void {
   const maxCheckout = currentDate.getFullYear()+'-'+(currentDate.getMonth()+2)+'-'+currentDate.getDate();
 
 
+  interface SearchFormData {
+    city: string,
+    checkin: Date,
+    checkout: Date,
+    price: number,
+  }
+
+  function search(): void {
+    const form = document.querySelector('form')
+    form.addEventListener('submit', (event) => {
+      event.preventDefault()
+      searchItem({
+        city: form.city.value,
+        checkin: form.checkin.value,
+        checkout: form.checkout.value,
+        price: +form.price.value
+      })
+    })
+  }
+  function searchItem(value: SearchFormData): void {
+    console.log(value)
+  }
+
+
+
   renderBlock(
     'search-form-block',
     `
@@ -27,7 +52,7 @@ export function renderSearchFormBlock (checkin: Date, checkout?: Date) : void {
         <div class="row">
           <div>
             <label for="city">Город</label>
-            <input id="city" type="text" disabled value="Санкт-Петербург" />
+            <input id="city" type="text" name="city" disabled value="Санкт-Петербург" />
             <input type="hidden" disabled value="59.9386,30.3141" />
           </div>
           <!--<div class="providers">
