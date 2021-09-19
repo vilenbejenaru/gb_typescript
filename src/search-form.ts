@@ -26,18 +26,6 @@ export function renderSearchFormBlock (checkin: Date, checkout?: Date) : void {
     price: number,
   }
 
-  function search(): void {
-    const form = document.querySelector('form')
-    form.addEventListener('submit', (event) => {
-      event.preventDefault()
-      searchItem({
-        city: form.city.value,
-        checkin: form.checkin.value,
-        checkout: form.checkout.value,
-        price: +form.price.value
-      })
-    })
-  }
   function searchItem(value: SearchFormData): void {
     console.log(value)
   }
@@ -47,7 +35,7 @@ export function renderSearchFormBlock (checkin: Date, checkout?: Date) : void {
   renderBlock(
     'search-form-block',
     `
-    <form>
+    <form id='searchForm'>
       <fieldset class="search-filedset">
         <div class="row">
           <div>
@@ -74,11 +62,39 @@ export function renderSearchFormBlock (checkin: Date, checkout?: Date) : void {
             <input id="max-price" type="text" value="" name="price" class="max-price" />
           </div>
           <div>
-            <div><button>Найти</button></div>
+            <div><button type='submit'>Найти</button></div>
           </div>
         </div>
       </fieldset>
     </form>
     `
   )
+
+  const form = document.getElementById('searchForm');
+  const checkinElement = document.getElementById('check-in-date')
+  const checkoutElement = document.getElementById('check-out-date')
+  const priceElement = document.getElementById('max-price')
+
+  checkinElement.addEventListener('change',function(event){
+    checkinElement.setAttribute('value',event.target.value);
+  });
+  checkoutElement.addEventListener('change',function(event){
+    checkoutElement.setAttribute('value',event.target.value);
+  });
+  priceElement.addEventListener('change', function (event) {
+    priceElement.setAttribute('value', event.target.value)
+  })
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault()
+    const city = document.getElementById('city')
+
+    searchItem({
+      'city': city.getAttribute('value'),
+      'checkin': new Date (checkinElement.getAttribute('value')),
+      'checkout': new Date (checkoutElement.getAttribute('value')),
+      'price': +priceElement.getAttribute('value')
+    })
+    return searchItem;
+  })
 }

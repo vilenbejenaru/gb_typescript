@@ -12,9 +12,9 @@ export function renderUserBlock
     'user-block',
     `
     <div class="header-container">
-      <img class="avatar" src="/img/avatar.png" alt="Wade Warren" />
+      <img class="avatar" src="${userAvatar}" alt="${userName}" />
       <div class="info">
-          <p class="name">Wade Warren</p>
+          <p class="name">${userName}</p>
           <p class="fav">
             <i class="heart-icon${hasFavoriteItems ? ' active' : ''}"></i>${favoritesCaption}
           </p>
