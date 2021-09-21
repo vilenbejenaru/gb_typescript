@@ -25,12 +25,33 @@ export function renderSearchFormBlock (checkin: Date, checkout?: Date) : void {
     checkout: Date,
     price: number,
   }
-
+  function dateToUnixStamp(date) {
+    return date.getTime() / 1000
+  }
   function searchItem(value: SearchFormData): void {
-    console.log(value)
+    let url = `http://localhost:3030/places?` +
+    `checkInDate=${dateToUnixStamp(value.checkin)}&` +
+    `checkOutDate=${dateToUnixStamp(value.checkout)}&` +
+    'coordinates=59.9386,30.3141';
+
+    if (value.price!= null) {
+      url += `&maxPrice=${value.price}`
+    }
+    fetch(url).then(()=>function(data: any) {
+      console.log(data);
+    }).catch(()=>function(error: any){
+      console.log(error);
+    });
   }
 
-
+  interface Place {
+    image: string,
+    name: string,
+    description: string,
+    remoteness: number,
+    bookedDates: number[],
+  }
+  
 
   renderBlock(
     'search-form-block',
